@@ -3,7 +3,6 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {GameGuard} from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import {LoginGuard} from "../routeProtectors/LoginGuard";
-import Login from "../../login/Login";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 import Register from "./AppRouter";
 import {OwnProfileGuard} from "../routeProtectors/OwnProfileGuard";
@@ -22,7 +21,7 @@ import RUserProfileRouter from "./RUserProfileRouter";
  * /game renders a Router that contains other sub-routes that render in turn other react components
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
-class LoginRouter extends React.Component {
+class RegisterRouter extends React.Component {
     render() {
         return (
             <BrowserRouter>
@@ -37,22 +36,22 @@ class LoginRouter extends React.Component {
                             )}
                         />
                         <Route
-                            path="/login"
-                            exact
-                            render={() => (
-                                <LoginGuard>
-                                    <Login />
-                                </LoginGuard>
-                            )}
-                        />
-                        <Route path="/" exactrender={() => <Redirect to={"/game"}/>}/>
-                        <Route
                             path="/register"
                             exact
                             render={() => (
                                 <RegisterGuard>
-                                    <Register base={"/register"}/>
+                                    <Register />
                                 </RegisterGuard>
+                            )}
+                        />
+                        <Route path="/" exactrender={() => <Redirect to={"/game"}/>}/>
+                        <Route
+                            path="/login"
+                            exact
+                            render={() => (
+                                <LoginGuard>
+                                    <AppRouter base={"/login"}/>
+                                </LoginGuard>
                             )}>
                         </Route>
                         <Route
@@ -89,4 +88,4 @@ class LoginRouter extends React.Component {
 /*
 * Don't forget to export your component!
  */
-export default LoginRouter;
+export default RegisterRouter;

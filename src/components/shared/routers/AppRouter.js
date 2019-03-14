@@ -3,15 +3,15 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {GameGuard} from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
-import Register from "../../register/Register";
 import {LoginGuard} from "../routeProtectors/LoginGuard";
-import LoginRouter from "./LoginRouter"
+import RegisterRouter from "./RegisterRouter"
 import {OwnProfileGuard} from "../routeProtectors/OwnProfileGuard";
 import OwnProfileRouter from "./OwnProfileRouter";
 import {RegisteredUsersGuard} from "../routeProtectors/RegisteredUsersGuard";
 import RegisteredUsersRouter from "./RegisteredUsersRouter";
 import {RUserProfileGuard} from "../routeProtectors/RUserProfileGuard";
 import RUserProfileRouter from "./RUserProfileRouter";
+import Login from "../../login/Login";
 
 /**
  * Main router of your application.
@@ -29,12 +29,12 @@ class AppRouter extends React.Component {
                 <Switch>
                     <div>
                         <Route
-                            path="/register"
+                            path="/login"
                             exact
                             render={() => (
-                                <RegisterGuard>
-                                    <Register />
-                                </RegisterGuard>
+                                <LoginGuard>
+                                    <Login />
+                                </LoginGuard>
                             )}
                         />
                         <Route
@@ -47,11 +47,11 @@ class AppRouter extends React.Component {
                         />
                         <Route path="/" exact render={() => <Redirect to={"/game"}/>}/>
                         <Route
-                            path="/login"
+                            path="/register"
                             render={() => (
-                                <LoginGuard>
-                                    <LoginRouter base={"/login"}/>
-                                </LoginGuard>
+                                <RegisterGuard>
+                                    <RegisterRouter base={"/register"}/>
+                                </RegisterGuard>
                             )}
                         />
                         <Route

@@ -4,9 +4,8 @@ import {GameGuard} from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import {LoginGuard} from "../routeProtectors/LoginGuard";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
-import Register from "./AppRouter";
 import {OwnProfileGuard} from "../routeProtectors/OwnProfileGuard";
-import LoginRouter from "./LoginRouter";
+import RegisterRouter from "./RegisterRouter";
 import {RegisteredUsersGuard} from "../routeProtectors/RegisteredUsersGuard";
 import RegisteredUsers from "../../profile/RegisteredUsers";
 import OwnProfileRouter from "./OwnProfileRouter";
@@ -51,7 +50,7 @@ class RegisteredUsersRouter extends React.Component {
                             exact
                             render={() => (
                                 <RegisterGuard>
-                                    <Register base={"/register"}/>
+                                    <RegisterRouter base={"/register"}/>
                                 </RegisterGuard>
                             )}>
                         </Route>
@@ -59,7 +58,7 @@ class RegisteredUsersRouter extends React.Component {
                             path="/login"
                             render={() => (
                                 <LoginGuard>
-                                    <LoginRouter base={"/login"}/>
+                                    <AppRouter base={"/login"}/>
                                 </LoginGuard>
                             )}
                         />
