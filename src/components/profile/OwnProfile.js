@@ -89,7 +89,7 @@ class OwnProfile extends React.Component {
         else
             oldBirth = this.state.birthdate;
 
-        fetch(`${getDomain()}/users/{userId}`, {
+        fetch(`${getDomain()}/users/${localStorage.getItem("token")}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

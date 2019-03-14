@@ -33,14 +33,12 @@ class Game extends React.Component {
     }
 
     logout() {
-        fetch(`${getDomain()}/users/offline`, {
-            method: "POST",
+        fetch(`${getDomain()}/users/offline/${localStorage.getItem("username")}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                username: localStorage.getItem("username")
-            })
+            body: JSON.stringify({})
         })
             .then(response => {
                 return response.json();

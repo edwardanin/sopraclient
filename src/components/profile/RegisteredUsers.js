@@ -50,7 +50,8 @@ class RegisteredUsers extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${getDomain()}/users`, {
+        fetch(`${getDomain()}/users`,
+            {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

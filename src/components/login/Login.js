@@ -105,13 +105,12 @@ class Login extends React.Component {
             alert("Password cannot be blank!");
             return false;
         } else {
-            fetch(`${getDomain()}/users/{username}`, {
-                method: "POST",
+            fetch(`${getDomain()}/users/login/${this.state.username}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    username: this.state.username,
                     password: this.state.password
                 })
             })
