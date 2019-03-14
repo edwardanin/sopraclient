@@ -78,16 +78,11 @@ class OwnProfile extends React.Component {
     }
 
     saveEdit() {
-        var oldUsername, oldBirth;
-        if(this.state.username == null)
+        var oldUsername;
+        if (this.state.username == null)
             oldUsername = localStorage.getItem("username");
         else
             oldUsername = this.state.username;
-
-        if(this.state.birthdate == null)
-            oldBirth = localStorage.getItem("birthdate");
-        else
-            oldBirth = this.state.birthdate;
 
         fetch(`${getDomain()}/users/${localStorage.getItem("token")}`, {
             method: "PUT",
@@ -97,7 +92,7 @@ class OwnProfile extends React.Component {
             body: JSON.stringify({
                 id: localStorage.getItem("id"),
                 username: oldUsername,
-                birthdate: oldBirth,
+                birthdate: this.state.birthdate,
                 token: localStorage.getItem("token")
             })
         })
@@ -115,7 +110,10 @@ class OwnProfile extends React.Component {
                 localStorage.setItem("token", user.token);
                 localStorage.setItem("username", user.username);
                 localStorage.setItem("creationdate", user.creationDate);
-                localStorage.setItem("birthdate", user.birthdate);
+                if (user.birthdate === null) {
+                    localStorage.setItem("birthdate", "");
+                } else
+                    localStorage.setItem("birthdate", user.birthdate);
                 localStorage.setItem("status", user.status);
                 // user login successfully worked --> navigate to the route /game in the GameRouter
                 this.props.history.push(`/game`);

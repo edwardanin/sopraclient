@@ -14,20 +14,10 @@ const Container = styled.div`
 `;
 
 const UserDetails = styled.div`
+  margin: 6px 0;
   font-weight: lighter;
   margin-left: 5px;
 `;
-
-/*const Password = styled.div`
-  font-weight: bold;
-  color: #06c4ff;
-`;*/
-
-/*const Id = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
-`;*/
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.

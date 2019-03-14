@@ -5,7 +5,6 @@ import {Button} from "../../views/design/Button";
 import {withRouter} from "react-router-dom";
 import {getDomain} from "../../helpers/getDomain";
 import {Spinner} from "../../views/design/Spinner";
-//import AllUsers from "../../views/AllUsers";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -18,15 +17,6 @@ const Users = styled.ul`
   font-weight: lighter;
   margin-left: 5px;
 `;
-
-/*const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: lighter;
-  margin-left: 5px;
-`;*/
 
 class RegisteredUsers extends React.Component {
     constructor(props) {
@@ -45,18 +35,21 @@ class RegisteredUsers extends React.Component {
         localStorage.setItem("otherusername", uName);
         localStorage.setItem("otherstatus", stat);
         localStorage.setItem("othercreate", create);
-        localStorage.setItem("otherbirth", birth);
+        if (birth === null) {
+            localStorage.setItem("otherbirth", "<no data>");
+        } else
+            localStorage.setItem("otherbirth", birth);
         this.props.history.push("/ruserprofile");
     }
 
     componentDidMount() {
         fetch(`${getDomain()}/users`,
             {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
             .then(response => response.json())
             .then(async users => {
                 // delays continuous execution of an async operation for 0.8 seconds.

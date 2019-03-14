@@ -129,7 +129,10 @@ class Login extends React.Component {
                     localStorage.setItem("token", user.token);
                     localStorage.setItem("username", user.username);
                     localStorage.setItem("creationdate", user.creationDate);
-                    localStorage.setItem("birthdate", user.birthdate);
+                    if (user.birthdate === null)
+                        localStorage.setItem("birthdate", "<no data>");
+                    else
+                        localStorage.setItem("birthdate", user.birthdate);
                     localStorage.setItem("status", user.status);
 
                     // user login successfully worked --> navigate to the route /game in the GameRouter
@@ -138,9 +141,7 @@ class Login extends React.Component {
                 .catch(err => {
                     if (err.message.match(/Failed to fetch/)) {
                         alert("The server cannot be reached. Did you start it?");
-                    } //else if(err.status === 404) {
-                    //alert(err.message);
-                    //}
+                    }
                     /*else {
                         alert(`Something went wrong during the login: ${err.message}`);
                     }*/
