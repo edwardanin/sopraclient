@@ -78,11 +78,15 @@ class OwnProfile extends React.Component {
     }
 
     saveEdit() {
-        var oldUsername;
+        var oldUsername, oldBirthdate;
         if (this.state.username == null)
             oldUsername = localStorage.getItem("username");
         else
             oldUsername = this.state.username;
+        if(this.state.birthdate == null)
+            oldBirthdate = localStorage.getItem("birthdate");
+        else
+            oldBirthdate = this.state.birthdate;
 
         fetch(`${getDomain()}/users/${localStorage.getItem("token")}`, {
             method: "PUT",
@@ -92,7 +96,7 @@ class OwnProfile extends React.Component {
             body: JSON.stringify({
                 id: localStorage.getItem("id"),
                 username: oldUsername,
-                birthdate: this.state.birthdate,
+                birthdate: oldBirthdate,
                 token: localStorage.getItem("token")
             })
         })
