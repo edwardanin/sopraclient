@@ -65,7 +65,7 @@ const ButtonContainer = styled.div`
  * https://reactjs.org/docs/react-component.html
  * @Class
  */
-class Register extends React.Component {
+class Login extends React.Component {
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
@@ -76,7 +76,8 @@ class Register extends React.Component {
     super();
     this.state = {
       username: null,
-      password: null
+      password: null,
+      birthdate: null//change 07.03.2019
     };
   }
   /**
@@ -91,7 +92,8 @@ class Register extends React.Component {
       },
       body: JSON.stringify({
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        birthdate: this.state.birthdate //change 07.03.2019
       })
     })
       .then(response => response.json())
@@ -111,6 +113,9 @@ class Register extends React.Component {
       });
   }
 
+  login() {
+    this.props.history.push("/login");
+  }
   /**
    *  Every time the user enters something in the input field, the state gets updated.
    * @param key (the key of the state for identifying the field that needs to be updated)
@@ -145,10 +150,17 @@ class Register extends React.Component {
             />
             <Label>Password</Label>
             <InputField
-              type={"password"}
+              type="password"
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange("password", e.target.value);
+                this.handleInputChange("password", e.target.value); //change 07.03.2019
+              }}
+            />
+            <Label>Birthdate</Label>
+            <InputField
+              type="date"
+              onChange={e => {
+                this.handleInputChange("birthdate", e.target.value);
               }}
             />
             <ButtonContainer>
@@ -162,6 +174,14 @@ class Register extends React.Component {
                 Register
               </Button>
             </ButtonContainer>
+            <ButtonContainer>
+              <Button
+                witdh="50%"
+                onClick={() => {
+                  this.login();
+                }}
+              />
+            </ButtonContainer>
           </Form>
         </FormContainer>
       </BaseContainer>
@@ -173,4 +193,4 @@ class Register extends React.Component {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default withRouter(Register);
+export default withRouter(Login);

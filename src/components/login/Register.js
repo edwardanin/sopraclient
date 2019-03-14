@@ -65,7 +65,7 @@ const ButtonContainer = styled.div`
  * https://reactjs.org/docs/react-component.html
  * @Class
  */
-class Register extends React.Component {
+class Login extends React.Component {
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
@@ -75,15 +75,15 @@ class Register extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: null,
-      password: null
+      name: null,
+      username: null
     };
   }
   /**
    * HTTP POST request is sent to the backend.
    * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
    */
-  register() {
+  login() {
     fetch(`${getDomain()}/users`, {
       method: "POST",
       headers: {
@@ -91,7 +91,7 @@ class Register extends React.Component {
       },
       body: JSON.stringify({
         username: this.state.username,
-        password: this.state.password
+        name: this.state.name
       })
     })
       .then(response => response.json())
@@ -143,23 +143,22 @@ class Register extends React.Component {
                 this.handleInputChange("username", e.target.value);
               }}
             />
-            <Label>Password</Label>
+            <Label>Name</Label>
             <InputField
-              type={"password"}
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange("password", e.target.value);
+                this.handleInputChange("name", e.target.value);
               }}
             />
             <ButtonContainer>
               <Button
-                disabled={!this.state.username || !this.state.password}
+                disabled={!this.state.username || !this.state.name}
                 width="50%"
                 onClick={() => {
-                  this.register();
+                  this.login();
                 }}
               >
-                Register
+                Login
               </Button>
             </ButtonContainer>
           </Form>
@@ -173,4 +172,4 @@ class Register extends React.Component {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default withRouter(Register);
+export default withRouter(Login);
