@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   margin: 6px 0;
   width: 450px;
-  height: 150px;
+  height: 40px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
@@ -37,18 +37,14 @@ const UserDetails = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Player = () => {
+const AllUsers = ({ user }) => {
   return (
     <Container>
-        <UserDetails>ID: {localStorage.getItem("id")}</UserDetails>
-        <UserDetails>Token: {localStorage.getItem("token")}</UserDetails>
-        <UserDetails>Username: {localStorage.getItem("username")}</UserDetails>
-        <UserDetails>Birthdate: {localStorage.getItem("birthdate")}</UserDetails>
-        <UserDetails>Creation date: {localStorage.getItem("creationdate")}</UserDetails>
-        <UserDetails>Status: {localStorage.getItem("status")}</UserDetails>
+        <UserDetails value={user.id}>
+            Username: { " " + user.username }</UserDetails>
     </Container>
 
   );
 };
 
-export default Player;
+export default AllUsers;

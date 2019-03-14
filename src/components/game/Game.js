@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
+import {BaseContainer} from "../../helpers/layout";
 import Player from "../../views/Player";
-import { Spinner } from "../../views/design/Spinner";
-import { Button } from "../../views/design/Button";
-import { withRouter } from "react-router-dom";
+import {Button} from "../../views/design/Button";
+import {withRouter} from "react-router-dom";
+import {getDomain} from "../../helpers/getDomain";
+//import User from "../shared/models/User";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -25,71 +25,87 @@ const PlayerContainer = styled.li`
 `;
 
 class Game extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      users: null
-    };
-  }
+    constructor() {
+        super();
+        this.state = {
+            username: null
+        };
+    }
 
-  logout() {
-    localStorage.removeItem("token");
-    this.props.history.push("/login");
-  }
+    logout() {
+        fetch(`${getDomain()}/users/offline`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: localStorage.getItem("username")
+            })
+        })
+            .then(response => {
+                return response.json();
+            })
+        localStorage.clear();
+        this.props.history.push("/login");
+    }
 
-  componentDidMount() {
-    fetch(`${getDomain()}/users`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(async users => {
-        // delays continuous execution of an async operation for 0.8 seconds.
-        // This is just a fake async call, so that the spinner can be displayed
-        // feel free to remove it :)
-        await new Promise(resolve => setTimeout(resolve, 800));
+    edit() {
+        this.props.history.push("/ownprofile");
+    }
 
-        this.setState({ users });
-      })
-      .catch(err => {
-        console.log(err);
-        alert("Something went wrong fetching the users: " + err);
-      });
-  }
+    view() {
+        this.props.history.push("/registeredusers");
+    }
 
-  render() {
-    return (
-      <Container>
-        <h2>Happy Coding! </h2>
-        <p>Get all users from secure end point:</p>
-        {!this.state.users ? (
-          <Spinner />
-        ) : (
-          <div>
-            <Users>
-              {this.state.users.map(user => {
-                return (
-                  <PlayerContainer key={user.id}>
-                    <Player user={user} />
-                  </PlayerContainer>
-                );
-              })}
-            </Users>
-            <Button
-              width="100%"
-              onClick={() => {
-                this.logout();
-              }}
-            >
-              Logout
-            </Button>
-          </div>
-        )}
-      </Container>
-    );
-  }
+    componentDidMount() {
+    }
+
+    render() {
+        return (
+            <Container>
+                <h2>Happy Coding! </h2>
+                <div>
+                    <Users>
+                        <PlayerContainer>
+                            <Player />
+                        </PlayerContainer>
+                    </Users>
+                </div>
+                <div>
+                    <Button
+                        width="50%"
+                        onClick={() => {
+                            this.edit();
+                        }}
+                    >
+                        Edit Details
+                    </Button>
+                </div>
+                <br/>
+                <div>
+                    <Button
+                        width="50%"
+                        onClick={() => {
+                            this.view();
+                        }}
+                    >
+                        View Registered Users
+                    </Button>
+                </div>
+                <br/>
+                <div>
+                    <Button
+                        width="50%"
+                        onClick={() => {
+                            this.logout();
+                        }}
+                    >
+                        Logout
+                    </Button>
+                </div>
+            </Container>
+        );
+    }
 }
 
 export default withRouter(Game);

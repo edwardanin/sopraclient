@@ -20,7 +20,7 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 60%;
-  height: 375px;
+  height: 450px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
@@ -55,6 +55,12 @@ const Text = styled.text`
   text-align: center;
 `;
 
+const Success = styled.text`
+  color: red;
+  text-align: center;
+  font-size: 18px;
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -70,7 +76,7 @@ const ButtonContainer = styled.div`
  * https://reactjs.org/docs/react-component.html
  * @Class
  */
-class Login extends React.Component {
+class LoginSuccess extends React.Component {
     /**
      * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
      * The constructor for a React component is called before it is mounted (rendered).
@@ -98,7 +104,7 @@ class Login extends React.Component {
             alert("Password cannot be blank!");
             return false;
         } else {
-            fetch(`${getDomain()}/users`, {
+            fetch(`${getDomain()}/users/{username}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -108,20 +114,32 @@ class Login extends React.Component {
                     password: this.state.password
                 })
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (response.status === 404) {
+                        alert("Username does not exist!");
+                    } else if(response.status === 406) {
+                        alert("Password incorrect!");
+                    }
+                    return response.json();
+                })
                 .then(returnedUser => {
                     const user = new User(returnedUser);
                     // store the token into the local storage
+                    localStorage.setItem("id", user.id);
                     localStorage.setItem("token", user.token);
+                    localStorage.setItem("username", user.username);
+                    localStorage.setItem("creationdate", user.creationDate);
+                    localStorage.setItem("birthdate", user.birthdate);
+                    localStorage.setItem("status", user.status);
                     // user login successfully worked --> navigate to the route /game in the GameRouter
                     this.props.history.push(`/game`);
                 })
                 .catch(err => {
                     if (err.message.match(/Failed to fetch/)) {
                         alert("The server cannot be reached. Did you start it?");
-                    } else {
+                    } /*else {
                         alert(`Something went wrong during the login: ${err.message}`);
-                    }
+                    }*/
                 });
         }
     }
@@ -156,6 +174,8 @@ class Login extends React.Component {
             <BaseContainer>
                 <FormContainer>
                     <Form>
+                        <Success>Successfully registered! You may now login!</Success>
+                        <br/>
                         <Label>Username</Label>
                         <InputField
                             placeholder="Enter here.."
@@ -206,4 +226,4 @@ class Login extends React.Component {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default withRouter(Login);
+export default withRouter(LoginSuccess);

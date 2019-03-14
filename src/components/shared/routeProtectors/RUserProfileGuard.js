@@ -10,9 +10,9 @@ import { Redirect } from "react-router-dom";
  * @Guard
  * @param props
  */
-export const OwnProfileGuard = props => {
+export const RUserProfileGuard = props => {
   if (localStorage.getItem("token")) {
     return props.children;
   }
-  return <Redirect to={"/game"} />;
+  return <Redirect to={"/registeredusers"} />;
 };

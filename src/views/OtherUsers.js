@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   margin: 6px 0;
   width: 450px;
-  height: 150px;
+  height: 135px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
@@ -40,11 +40,11 @@ const UserDetails = styled.div`
 const OtherUsers = () => {
   return (
     <Container>
-        <UserDetails>ID: {localStorage.getItem("otherId")}</UserDetails>
-        <UserDetails>Username: {localStorage.getItem("otherUsername")}</UserDetails>
-        <UserDetails>Birthdate: {localStorage.getItem("birthdate")}</UserDetails>
-        <UserDetails>Creation date: {localStorage.getItem("otherCreationDate")}</UserDetails>
-        <UserDetails>Status: {localStorage.getItem("otherbirthdate")}</UserDetails>
+        <UserDetails>ID: {localStorage.getItem("otheruserid")}</UserDetails>
+        <UserDetails>Username: {localStorage.getItem("otherusername")}</UserDetails>
+        <UserDetails>Birthdate: {localStorage.getItem("otherbirth")}</UserDetails>
+        <UserDetails>Creation date: {localStorage.getItem("othercreate")}</UserDetails>
+        <UserDetails>Status: {localStorage.getItem("otherstatus")}</UserDetails>
     </Container>
 
   );

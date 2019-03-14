@@ -2,10 +2,17 @@ import React from "react";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {GameGuard} from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
-import {LoginGuard} from "../routeProtectors/LoginGuard";
-import Login from "../../login/Login";
+import {LoginSuccessGuard} from "../routeProtectors/LoginSuccessGuard";
+import LoginSuccess from "../../login/LoginSuccess";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 import Register from "./AppRouter";
+import {LoginGuard} from "../routeProtectors/LoginGuard";
+import LoginRouter from "./LoginRouter";
+import {OwnProfileGuard} from "../routeProtectors/OwnProfileGuard";
+import OwnProfileRouter from "./OwnProfileRouter";
+import {RegisteredUsersGuard} from "../routeProtectors/RegisteredUsersGuard";
+import {RUserProfileGuard} from "../routeProtectors/RUserProfileGuard";
+import RUserProfileRouter from "./RUserProfileRouter";
 
 /**
  * Main router of your application.
@@ -16,7 +23,7 @@ import Register from "./AppRouter";
  * /game renders a Router that contains other sub-routes that render in turn other react components
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
-class LoginRouter extends React.Component {
+class LoginSuccessRouter extends React.Component {
     render() {
         return (
             <BrowserRouter>
@@ -31,12 +38,12 @@ class LoginRouter extends React.Component {
                             )}
                         />
                         <Route
-                            path="/login"
+                            path="/loginsuccess"
                             exact
                             render={() => (
-                                <LoginGuard>
-                                    <Login />
-                                </LoginGuard>
+                                <LoginSuccessGuard>
+                                    <LoginSuccess />
+                                </LoginSuccessGuard>
                             )}
                         />
                         <Route path="/" exactrender={() => <Redirect to={"/game"}/>}/>
@@ -49,6 +56,38 @@ class LoginRouter extends React.Component {
                                 </RegisterGuard>
                             )}>
                         </Route>
+                        <Route
+                            path="/login"
+                            render={() => (
+                                <LoginGuard>
+                                    <LoginRouter base={"/login"}/>
+                                </LoginGuard>
+                            )}
+                        />
+                        <Route
+                            path="/ownprofile"
+                            render={() => (
+                                <OwnProfileGuard>
+                                    <OwnProfileRouter base={"/ownprofile"}/>
+                                </OwnProfileGuard>
+                            )}
+                        />
+                        <Route
+                            path="/registeredusers"
+                            render={() => (
+                                <RegisteredUsersGuard>
+                                    <RegisteredUsersGuard base={"/registeredusers"}/>
+                                </RegisteredUsersGuard>
+                            )}
+                        />
+                        <Route
+                            path="/ruserprofile"
+                            render={() => (
+                                <RUserProfileGuard>
+                                    <RUserProfileRouter base={"/ruserprofile"}/>
+                                </RUserProfileGuard>
+                            )}
+                        />
                     </div>
                 </Switch>
             </BrowserRouter>
@@ -59,4 +98,4 @@ class LoginRouter extends React.Component {
 /*
 * Don't forget to export your component!
  */
-export default LoginRouter;
+export default LoginSuccessRouter;
