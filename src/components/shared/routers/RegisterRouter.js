@@ -4,13 +4,14 @@ import {GameGuard} from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import {LoginGuard} from "../routeProtectors/LoginGuard";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
-import Register from "./AppRouter";
+import AppRouter from "./AppRouter";
 import {OwnProfileGuard} from "../routeProtectors/OwnProfileGuard";
 import OwnProfileRouter from "./OwnProfileRouter";
 import {RegisteredUsersGuard} from "../routeProtectors/RegisteredUsersGuard";
 import RegisteredUsersRouter from "./RegisteredUsersRouter";
 import {RUserProfileGuard} from "../routeProtectors/RUserProfileGuard";
 import RUserProfileRouter from "./RUserProfileRouter";
+import Register from "../../register/Register";
 
 /**
  * Main router of your application.

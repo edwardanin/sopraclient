@@ -3,6 +3,7 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {GameGuard} from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import {LoginGuard} from "../routeProtectors/LoginGuard";
+import AppRouter from "./AppRouter";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 import {OwnProfileGuard} from "../routeProtectors/OwnProfileGuard";
 import RegisterRouter from "./RegisterRouter";
